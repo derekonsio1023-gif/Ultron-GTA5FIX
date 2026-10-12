@@ -46,6 +46,7 @@
 <div id="hud"></div>
 <div id="loading"><div id="ls-stage"><div id="ls-screens"></div><img id="ls-logo" src="/b/8b0b5899ed/title/logo.png" alt=""><div id="ls-bars"><div id="modes" class="ls-bar"><button data-act="back"></button><button data-act="map5"></button><button data-act="map6"></button><button data-act="sandbox"></button><button data-act="story"></button></div><div class="ls-bar"><span id="label">Starting...</span><span id="pct">0%</span><i class="ls-spin"></i></div></div></div><div id="ls-log"><div id="data"></div><div id="console"></div></div><div id="bar"><div id="fill"></div></div></div>
 <div id="fps"></div>
+<script src="coi-serviceworker.js"></script>
 <script type="module">
 // Page of the browser build. The engine runs in a dedicated worker (loader.js: its "main thread", where the static constructors and
 // main() run and which may block); the page only owns the canvas, which is transferred to that worker and on to the GPU worker.
