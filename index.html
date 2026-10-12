@@ -7,7 +7,7 @@
 	html, body { margin: 0; height: 100%; background: #000; color: #ccc; font: 12px monospace; overflow: hidden; }
 	#canvas { display: block; position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; background: #000; }
 	/* title screen: the game's loading screen (LOADINGSCREEN_STARTUP) on its 1280x720 stage, scaled to the window; see the script below */
-	@font-face { font-family: 'Chalet'; src: url('/b/8b0b5899ed/title/chalet.woff') format('woff'); }
+	@font-face { font-family: 'Chalet'; src: url('./b/8b0b5899ed/title/chalet.woff') format('woff'); }
 	#loading { position: fixed; inset: 0; background: #000; overflow: hidden; transition: opacity .8s; z-index: 5; }
 	#loading.done { opacity: 0; pointer-events: none; }
 	#ls-stage { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; transform-origin: 0 0; overflow: hidden; font: 12px Chalet, sans-serif; color: #fff; }
@@ -27,7 +27,7 @@
 	#modes.ask button:not(:disabled) .ls-key { animation: ls-ask 1.2s ease-in-out infinite; }
 	@keyframes ls-ask { 50% { opacity: .35; } }
 	.ls-key { margin-left: 4px; min-width: 12px; height: 15px; padding: 0 4px; line-height: 16px; border-radius: 2px; background: #fff; color: #000; font-size: 10px; text-transform: uppercase; }
-	.ls-spin { flex: none; width: 22px; height: 22px; margin-left: 2px; background: url('/b/8b0b5899ed/title/spinner.png') center / 24px 24px no-repeat; animation: ls-spin 2s steps(60) infinite; }
+	.ls-spin { flex: none; width: 22px; height: 22px; margin-left: 2px; background: url('./b/8b0b5899ed/title/spinner.png') center / 24px 24px no-repeat; animation: ls-spin 2s steps(60) infinite; }
 	@keyframes ls-spin { from { transform: rotate(0deg) scaleX(-1); } to { transform: rotate(-360deg) scaleX(-1); } }
 	#label { text-shadow: .85px .85px 1px rgba(0, 0, 0, .45); }
 	#pct { margin-left: 15px; font-variant-numeric: tabular-nums; }
@@ -44,7 +44,7 @@
 <body>
 <canvas id="canvas" width="800" height="600" tabindex="-1"></canvas>
 <div id="hud"></div>
-<div id="loading"><div id="ls-stage"><div id="ls-screens"></div><img id="ls-logo" src="/b/8b0b5899ed/title/logo.png" alt=""><div id="ls-bars"><div id="modes" class="ls-bar"><button data-act="back"></button><button data-act="map5"></button><button data-act="map6"></button><button data-act="sandbox"></button><button data-act="story"></button></div><div class="ls-bar"><span id="label">Starting...</span><span id="pct">0%</span><i class="ls-spin"></i></div></div></div><div id="ls-log"><div id="data"></div><div id="console"></div></div><div id="bar"><div id="fill"></div></div></div>
+<div id="loading"><div id="ls-stage"><div id="ls-screens"></div><img id="ls-logo" src="./b/8b0b5899ed/title/logo.png" alt=""><div id="ls-bars"><div id="modes" class="ls-bar"><button data-act="back"></button><button data-act="map5"></button><button data-act="map6"></button><button data-act="sandbox"></button><button data-act="story"></button></div><div class="ls-bar"><span id="label">Starting...</span><span id="pct">0%</span><i class="ls-spin"></i></div></div></div><div id="ls-log"><div id="data"></div><div id="console"></div></div><div id="bar"><div id="fill"></div></div></div>
 <div id="fps"></div>
 <script src="coi-serviceworker.js"></script>
 <script type="module">
@@ -54,7 +54,7 @@
 const q = new URLSearchParams(location.search);
 // URL prefix of everything this page loads (loader, workers, engine, shaders, title art): empty on the dev server; on the PHP host (phase3/host/index.php) it puts the page's own
 // text `/b/8b0b5899ed` through str_replace to `/b/<build id>`, so those files are cached for ever under URLs that change when the build does.
-const BASE = '/b/8b0b5899ed'.charAt(0) === '_' ? '' : '/b/8b0b5899ed';
+const BASE = './b/8b0b5899ed'.charAt(0) === '_' ? '' : './b/8b0b5899ed';
 // ?log=1: the page, the engine threads and the workers send their log lines to the dev server (browser.log, browser_<ip>.log); off by default: the player's upload
 // bandwidth and this thread's time. The loading screen's own log line and the browser console do not depend on it.
 const remoteLog = q.get('log') === '1';
@@ -126,7 +126,7 @@ let stopTitle = () => {};
 	const place = (l, x, yr, xr) => { l.el.style.transform = 'translate3d(' + x + 'px,' + l.y + 'px,0) rotateY(' + -yr + 'deg) rotateX(' + -xr + 'deg)'; };
 	// a screen's images, decoded before it may show (the movie waits for its texture dictionary the same way)
 	const prepare = (i) => {
-		const layers = SCREENS[order[i]].map((d) => ({ ...d, img: Object.assign(new Image(), { src: '/b/8b0b5899ed/title/art/' + d.tex + '.webp' }) }));
+		const layers = SCREENS[order[i]].map((d) => ({ ...d, img: Object.assign(new Image(), { src: './b/8b0b5899ed/title/art/' + d.tex + '.webp' }) }));
 		return Promise.all(layers.map((l) => l.img.decode().catch(() => {}))).then(() => layers);
 	};
 	let active = null, leaving = null, index = 0, alt = -1, timer = 0, raf = 0, stopped = false;
